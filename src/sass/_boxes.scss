@@ -1,0 +1,124 @@
+.boxes {
+  .box {
+    left: 50%;
+    margin: 0;
+    max-width: 90%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    .box-logo {
+      border-radius: 50%;
+      box-shadow: 5px 8.7px 40px rgba(99, 117, 138, 0.3);
+      cursor: pointer;
+      margin: -85px 0 20px;
+      width: 100px;
+    }
+
+    .box-title {
+      font-size: 1.5em;
+    }
+
+    .btn-invoice {
+      font-size: 0.7em;
+      margin: 25px 0 -25px;
+    }
+
+    table {
+      &.invoice {
+        margin: 0;
+
+        tr {
+          td,
+          th {
+            border: none;
+          }
+
+          th {
+            font-weight: bold;
+            text-align: center;
+            width: 40px;
+          }
+
+          td {
+            &:first-of-type {
+              text-align: left;
+            }
+
+            &:last-of-type {
+              font-weight: bold;
+              text-align: right;
+            }
+          }
+        }
+      }
+
+      &.invoice-total {
+        tr {
+          td,
+          th {
+            border: none;
+          }
+
+          td {
+            text-align: right;
+
+            &:first-of-type {
+              font-style: italic;
+              width: 100%;
+            }
+
+            &:last-of-type {
+              font-weight: bold;
+              white-space: nowrap;
+              width: auto;
+            }
+
+            span {
+              font-weight: inherit;
+            }
+          }
+        }
+      }
+    }
+
+    .charities {
+      > .card {
+        cursor: pointer;
+        margin: 0;
+
+        > .card-img-overlay {
+          background: rgba(55, 147, 212, 0.75);
+
+          > .card-title {
+            color: #FFF;
+            font-weight: bold;
+            left: 50%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+
+        &+.card {
+          margin-top: 0.75rem;
+        }
+      }
+    }
+
+    &.hidden {
+      display: none!important;
+    }
+  }
+
+  &.overflow {
+    .box:not(.animating) {
+      margin: 150px 0 100px;
+      position: absolute;
+      top: 0!important;
+      transform: translate(-50%, 0);
+    }
+  }
+}

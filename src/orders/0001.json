@@ -1,0 +1,38 @@
+{
+  "merchant": "Cafe",
+  "charities": {
+    "OXF": {
+      "name": "Oxfam",
+      "image": "/src/images/charities/OXF.jpg"
+    },
+    "MSF": {
+      "name": "Médecins Sans Frontières",
+      "image": "/src/images/charities/MSF.jpg"
+    },
+    "SQS": {
+      "name": "Squawk Squad",
+      "image": "/src/images/charities/SQS.jpeg"
+    },
+    "YTH": {
+      "name": "Youthline",
+      "image": "/src/images/charities/YTH.jpeg"
+    },
+    "WWF": {
+      "name": "WWF",
+      "image": "/src/images/charities/WWF.jpeg"
+    },
+    "CAN": {
+      "name": "Cancer Society",
+      "image": "/src/images/charities/CAN.jpg"
+    }
+  },
+  "items": [{
+    "quantity": 1,
+    "name": "Coffee",
+    "price": 399
+  }, {
+    "quantity": 1,
+    "name": "FREE for Choice demo",
+    "price": -399
+  }]
+}

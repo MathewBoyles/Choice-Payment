@@ -1,0 +1,45 @@
+@import "abstracts/fonts";
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "abstracts/icons";
+@import "base/base";
+@import "components/input";
+@import "components/button";
+@import "components/prices/common";
+@import "components/prices/02";
+@import "loader";
+@import "boxes";
+
+#emailError {
+  display: none;
+}
+
+#charityWrapper,
+#emailWrapper {
+  margin: 10px 0 20px;
+
+  > a {
+    width: 100%;
+
+    > span {
+      display: inline-block;
+      margin-bottom: -6px;
+      max-width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+#charityWrapper {
+  margin: 0;
+}
+
+#background-gradient {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
