@@ -1,6 +1,10 @@
 var app;
 
 $(document).ready(function() {
+  setTimeout(function() {
+    window.scrollTo(0, 1);
+  }, 100);
+
   app = {
     init: function() {
       app.backgroundGradient = new Granim({
@@ -63,6 +67,13 @@ $(document).ready(function() {
           url: "/src/orders/" + app.invoiceKey + ".json",
           success: function(data) {
             $.extend(app.globals, data);
+
+            if (app.globals.contribution >= 100) {
+              app.globals.contribution_text = "$" + (app.globals.contribution / 100).toFixed(2);
+            } else {
+              app.globals.contribution_text = app.globals.contribution + "&cent;";
+            }
+
             app.load();
             app.ready();
 
@@ -198,17 +209,26 @@ $(document).ready(function() {
       app.setGlobals();
     },
     globals: {
-      logo: "/src/images/logo.jpg",
+      logo: "/src/images/logo.png",
       merchant: "",
       charities: {},
       items: [],
       total: 0,
+      contribution: 0,
       charity: "",
       email: ""
     },
+    history: [],
     changePage: function(pageName, doAnimate) {
       if (pageName == "#back") {
-        app.changePage(app.globals.previous, true);
+        app.history.pop();
+        app.changePage(app.history[app.history.length - 1], doAnimate);
+        app.history.pop();
+
+        return false;
+      }
+      if (pageName == "#previous") {
+        app.changePage(app.globals.previous, doAnimate);
         return false;
       }
       if (pageName == "#reload") {
@@ -216,6 +236,7 @@ $(document).ready(function() {
         return false;
       }
 
+      app.history.push(pageName);
       app.globals.previous = app.globals.previousTo;
 
       if (doAnimate) {
@@ -243,15 +264,15 @@ $(document).ready(function() {
 
           app.globals.previousTo = pageName;
 
-          function checkSize($el) {
-            if ($(window).height() < $el.show().innerHeight()) {
+          var checkSize = function($el) {
+            if ($(window).height() < ($el.show().innerHeight() + 100)) {
               $(".boxes .box").hide();
               $(".boxes").addClass("overflow");
             } else {
               $(".boxes").removeClass("overflow");
             }
             $el.hide();
-          }
+          };
 
           if (doAnimate) {
             setTimeout(function($el) {
@@ -283,6 +304,7 @@ $(document).ready(function() {
           var gValue = app.globals[gName];
           if (gName == "total") {
             gValue /= 100;
+            gValue = gValue.toFixed(2);
           }
 
           switch (gType) {

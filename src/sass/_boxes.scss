@@ -20,9 +20,21 @@
       font-size: 1.5em;
     }
 
+    .btn-account,
     .btn-invoice {
       font-size: 0.7em;
+    }
+
+    .confirm-footer {
       margin: 25px 0 -25px;
+
+      > a {
+        margin-bottom: 10px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
     }
 
     table {
@@ -85,6 +97,7 @@
 
     .charities {
       > .card {
+        background: none!important;
         cursor: pointer;
         margin: 0;
 
@@ -115,7 +128,7 @@
 
   &.overflow {
     .box:not(.animating) {
-      margin: 150px 0 100px;
+      margin: 100px 0;
       position: absolute;
       top: 0!important;
       transform: translate(-50%, 0);

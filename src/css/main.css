@@ -487,9 +487,15 @@ input {
     width: 100px; }
   .boxes .box .box-title {
     font-size: 1.5em; }
+  .boxes .box .btn-account,
   .boxes .box .btn-invoice {
-    font-size: 0.7em;
+    font-size: 0.7em; }
+  .boxes .box .confirm-footer {
     margin: 25px 0 -25px; }
+    .boxes .box .confirm-footer > a {
+      margin-bottom: 10px; }
+      .boxes .box .confirm-footer > a:last-of-type {
+        margin-bottom: 0; }
   .boxes .box table.invoice {
     margin: 0; }
     .boxes .box table.invoice tr td,
@@ -519,6 +525,7 @@ input {
     .boxes .box table.invoice-total tr td span {
       font-weight: inherit; }
   .boxes .box .charities > .card {
+    background: none !important;
     cursor: pointer;
     margin: 0; }
     .boxes .box .charities > .card > .card-img-overlay {
@@ -536,7 +543,7 @@ input {
   .boxes .box.hidden {
     display: none !important; }
 .boxes.overflow .box:not(.animating) {
-  margin: 150px 0 100px;
+  margin: 100px 0;
   position: absolute;
   top: 0 !important;
   transform: translate(-50%, 0); }
@@ -557,9 +564,6 @@ input {
       max-width: 80%;
       overflow: hidden;
       text-overflow: ellipsis; }
-
-#charityWrapper {
-  margin: 0; }
 
 #background-gradient {
   height: 100%;

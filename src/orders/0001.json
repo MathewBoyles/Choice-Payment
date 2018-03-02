@@ -1,5 +1,7 @@
 {
   "merchant": "Cafe",
+  "total": 0,
+  "contribution": 5,
   "charities": {
     "OXF": {
       "name": "Oxfam",

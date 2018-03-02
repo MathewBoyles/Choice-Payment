@@ -78,7 +78,7 @@
             <script type="text/template7">
             <div class="charities">
               {{#each charities}}
-              <div class="card bg-dark text-white charity" data-charity="{{@key}}">
+              <div class="card charity" data-charity="{{@key}}">
                 <img class="card-img" src="{{image}}" alt="{{name}}" width="100%">
                 <div class="card-img-overlay">
                   <h5 class="card-title">{{name}}</h5>
@@ -112,13 +112,44 @@
             <span class="prices__item__price">$ <span data-value="{'html':'total'}"></span></span>
 
             <span class="prices__item__price_info" id="charityWrapper">
-              <span>Donating to:</span>
+              <span><strong data-value="{'html':'contribution_text'}"></strong> contribution to:</span>
               <br />
               <a href="#" class="btn btn-link btn-xs" data-change="charity">
                 <span id="charityName" data-value="{'html':'charity','title':'charity'}"></span>
                 <i class="fas fa-pencil-alt"></i>
               </a>
             </span>
+
+            <!-- <span class="prices__item__price_info" id="emailWrapper">
+              <span>Email:</span>
+              <br />
+              <a href="#" class="btn btn-link btn-xs" data-change="email">
+                <span id="emailAddress" data-value="{'html':'email','title':'email'}"></span>
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+            </span>
+
+            <span class="prices__item__price_info" id="cardWrapper">
+              <span>Card:</span>
+              <br />
+              <em>Not required</em>
+            </span> -->
+
+            <a href="#" class="button button--blue button--blue-shadow" id="confirmPayment">Confirm Payment</a>
+
+            <div class="confirm-footer">
+              <a href="#" class="btn btn-link btn-xs btn-invoice" data-change="invoice">View Invoice</a>
+              <br />
+              <a href="#" class="btn btn-link btn-xs btn-account" data-change="account">Account Information</a>
+            </div>
+          </div>
+          <!-- /BOX: confirm -->
+
+          <!-- BOX: account -->
+          <div class="prices__item prices__item--02 prices__item--accent--02 box" data-box="{'name':'account','background':'default-state'}">
+            <img class="box-logo" data-value="{'src':'logo'}" data-change="choice" />
+            <h3 class="prices__item__title" data-value="{'html':'merchant'}"></h3>
+            <h5 class="prices__item__title box-title">Account</h5>
 
             <span class="prices__item__price_info" id="emailWrapper">
               <span>Email:</span>
@@ -135,13 +166,9 @@
               <em>Not required</em>
             </span>
 
-            <a href="#" class="button button--blue button--blue-shadow" id="confirmPayment">Confirm Payment</a>
-
-            <div>
-              <a href="#" class="btn btn-link btn-xs btn-invoice" data-change="invoice">View Invoice</a>
-            </div>
+            <a href="#" class="button button--blue button--blue-shadow" data-change="#back">Back</a>
           </div>
-          <!-- /BOX: confirm -->
+          <!-- /BOX: account -->
 
           <!-- BOX: success -->
           <div class="prices__item prices__item--02 prices__item--accent--02 box" data-box="{'name':'success','background':'all'}">
