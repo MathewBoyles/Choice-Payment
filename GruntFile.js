@@ -11,20 +11,6 @@ module.exports = function(grunt) {
         }]
       }
     },
-    uglify: {
-      options: {
-        mangle: true
-      },
-      my_target: {
-        files: [{
-          expand: true,
-          cwd: "src/js/",
-          src: ["*.js"],
-          dest: "src/js/",
-          ext: ".min.js"
-        }]
-      }
-    },
     jshint: {
       files: ["src/js/main.js"],
       options: {
@@ -53,10 +39,6 @@ module.exports = function(grunt) {
         files: ["src/sass/*.scss"],
         tasks: ["sass"]
       },
-      uglify: {
-        files: ["src/js/*.js", "!src/js/*.min.js"],
-        tasks: ["uglify"]
-      },
       jshint: {
         files: ["src/js/main.js"],
         tasks: ["jshint"]
@@ -67,9 +49,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-sass");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
 
   grunt.registerTask("default", ["all", "watch"]);
-  grunt.registerTask("all", ["sass", "cssmin", "uglify"]);
+  grunt.registerTask("all", ["sass", "cssmin"]);
 };
