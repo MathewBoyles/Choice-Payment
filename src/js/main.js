@@ -6,6 +6,17 @@ $(document).ready(function() {
   }, 100);
 
   app = {
+    globals: {
+      logo: "/src/images/logo.png",
+      merchant: "",
+      charities: {},
+      items: [],
+      total: 0,
+      contribution: 0,
+      charity: "",
+      email: ""
+    },
+    history: [],
     init: function() {
       app.backgroundGradient = new Granim({
         element: "#background-gradient",
@@ -56,6 +67,10 @@ $(document).ready(function() {
       app.invoiceKey = window.location.hash.substr(3);
       app.invoiceKey = app.invoiceKey || "0001";
 
+      app.preload(app.globals.logo, {
+        "as": "image"
+      });
+
       if (!app.invoiceKey) {
         $("#loader").fadeOut();
         app.changePage("error");
@@ -74,10 +89,18 @@ $(document).ready(function() {
               app.globals.contribution_text = app.globals.contribution + "&cent;";
             }
 
+            $.each(app.globals.charities, function(i, d) {
+              app.preload(d.image, {
+                "as": "image"
+              });
+            });
+
             app.load();
             app.ready();
 
-            $("#loader").fadeOut();
+            setTimeout(function() {
+              $("#loader").fadeOut();
+            }, 500);
             app.changePage("invoice");
           },
           error: function() {
@@ -87,6 +110,14 @@ $(document).ready(function() {
           }
         });
       }
+    },
+    preload: function(file, data) {
+      $el = $("<link />");
+      $el.attr("rel", "preload");
+      $el.attr("href", file);
+      $el.attr(data);
+
+      $("head").append($el);
     },
     load: function() {
       $(".boxes .box").each(function() {
@@ -208,17 +239,6 @@ $(document).ready(function() {
       app.changePage(app.globals.charity && app.globals.email ? "confirm" : "invoice", false);
       app.setGlobals();
     },
-    globals: {
-      logo: "/src/images/logo.png",
-      merchant: "",
-      charities: {},
-      items: [],
-      total: 0,
-      contribution: 0,
-      charity: "",
-      email: ""
-    },
-    history: [],
     changePage: function(pageName, doAnimate) {
       if (pageName == "#back") {
         app.history.pop();
