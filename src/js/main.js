@@ -7,7 +7,7 @@ $(document).ready(function() {
   app = {
     globals: {
       logo: "/src/images/logo.png",
-      version: "v0.4.3",
+      version: "v0.4.4",
       merchant: "",
       charities: {},
       items: [],
@@ -27,7 +27,7 @@ $(document).ready(function() {
 
         $.ajax({
           url: "/src/tmpl/" + file + ".html",
-          cache: "false",
+          cache: false,
           success: function(data) {
             $("#content").append(data);
 
