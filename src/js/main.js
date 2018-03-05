@@ -7,7 +7,7 @@ $(document).ready(function() {
   app = {
     globals: {
       logo: "/src/images/logo.png",
-      version: "v0.4.0",
+      version: "v0.4.1",
       merchant: "",
       charities: {},
       items: [],
