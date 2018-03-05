@@ -8,6 +8,7 @@ $(document).ready(function() {
   app = {
     globals: {
       logo: "/src/images/logo.png",
+      version: "v0.3.6",
       merchant: "",
       charities: {},
       items: [],
