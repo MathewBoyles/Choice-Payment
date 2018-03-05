@@ -548,6 +548,10 @@ input {
   top: 0 !important;
   transform: translate(-50%, 0); }
 
+html, body {
+  background: #4facfe;
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); }
+
 #emailError {
   display: none; }
 
