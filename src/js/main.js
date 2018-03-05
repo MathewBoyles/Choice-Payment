@@ -7,7 +7,7 @@ $(document).ready(function() {
   app = {
     globals: {
       logo: "/src/images/logo.png",
-      version: "v0.4.2",
+      version: "v0.4.3",
       merchant: "",
       charities: {},
       items: [],
@@ -236,16 +236,16 @@ $(document).ready(function() {
       $("#saveEmail").click(function(ev) {
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-        if (reg.test($("#emailAddress").val()) == false) {
+        if (reg.test($("#emailAddressInput").val()) == false) {
           $("#emailError").show();
           return false;
         }
 
         $("#emailError").hide();
-        app.setGlobals("email", $("#emailAddress").val());
+        app.setGlobals("email", $("#emailAddressInput").val());
 
         if (typeof Storage !== "undefined") {
-          localStorage.setItem("choice__email", $("#emailAddress").val());
+          localStorage.setItem("choice__email", $("#emailAddressInput").val());
         }
 
         app.changePage("confirm", true);
