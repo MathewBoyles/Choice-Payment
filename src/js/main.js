@@ -7,7 +7,7 @@ $(document).ready(function() {
   app = {
     globals: {
       logo: "/src/images/logo.png",
-      version: "v0.4.1",
+      version: "v0.4.2",
       merchant: "",
       charities: {},
       items: [],
@@ -343,7 +343,7 @@ $(document).ready(function() {
           if (doAnimate) {
             setTimeout(function(data) {
               checkSize(data[0]);
-              $el.fadeIn();
+              data[0].fadeIn();
               setTimeout(function(pageName) {
                 hj("stateChange", app.invoiceKey + "/" + pageName);
               }, 550, data[1]);
