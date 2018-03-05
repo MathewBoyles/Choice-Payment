@@ -4,11 +4,10 @@ $(document).ready(function() {
   setTimeout(function() {
     window.scrollTo(0, 1);
   }, 100);
-
   app = {
     globals: {
       logo: "/src/images/logo.png",
-      version: "v0.3.6",
+      version: "v0.4.0",
       merchant: "",
       charities: {},
       items: [],
@@ -18,6 +17,44 @@ $(document).ready(function() {
       email: ""
     },
     history: [],
+    import: {
+      list: ["account", "charity", "choice", "confirm", "email", "invoice", "success"],
+      count: 0,
+      success: function() {},
+      load: function(file) {
+        app.import.count++;
+        app.import.file = file;
+
+        $.ajax({
+          url: "/src/tmpl/" + file + ".html",
+          cache: "false",
+          success: function(data) {
+            $("#content").append(data);
+
+            if (app.import.count >= app.import.list.length) {
+              app.import.success();
+            } else {
+              app.import.load(app.import.list[app.import.count]);
+            }
+          },
+          error: function() {
+            app.error("NO_TMPL", true, {
+              tmpl: app.import.file
+            });
+          }
+        });
+      },
+      start: function() {
+        app.import.load(app.import.list[0]);
+      }
+    },
+    error: function(msg, crit, data) {
+      console.error("[CHOICE]", (crit ? "CRITICAL " : "") + "ERROR", "ERR_" + msg, data);
+
+      $("#loader").fadeOut();
+      app.load();
+      app.changePage("error");
+    },
     init: function() {
       app.backgroundGradient = new Granim({
         element: "#background-gradient",
@@ -64,6 +101,12 @@ $(document).ready(function() {
         }
       });
 
+      WebFont.load({
+        google: {
+          families: ["Playfair+Display:400,400italic,700,700italic:latin", "Montserrat:700,400:latin"]
+        }
+      });
+
       app.invoiceKey = window.location.hash;
       app.invoiceKey = window.location.hash.substr(3);
       app.invoiceKey = app.invoiceKey || "0001";
@@ -73,43 +116,43 @@ $(document).ready(function() {
       });
 
       if (!app.invoiceKey) {
-        $("#loader").fadeOut();
-        app.changePage("error");
+        app.error("MISSING_KEY", true, {});
       } else if (!app.invoiceKey.match(/^[0-9a-zA-Z]+$/)) {
-        $("#loader").fadeOut();
-        app.changePage("error");
+        app.error("BAD_KEY", true, {});
       } else {
-        $.ajax({
-          url: "/src/orders/" + app.invoiceKey + ".json",
-          success: function(data) {
-            $.extend(app.globals, data);
+        app.import.success = function() {
+          $.ajax({
+            url: "/src/orders/" + app.invoiceKey + ".json",
+            success: function(data) {
+              $.extend(app.globals, data);
 
-            if (app.globals.contribution >= 100) {
-              app.globals.contribution_text = "$" + (app.globals.contribution / 100).toFixed(2);
-            } else {
-              app.globals.contribution_text = app.globals.contribution + "&cent;";
-            }
+              if (app.globals.contribution >= 100) {
+                app.globals.contribution_text = "$" + (app.globals.contribution / 100).toFixed(2);
+              } else {
+                app.globals.contribution_text = app.globals.contribution + "&cent;";
+              }
 
-            $.each(app.globals.charities, function(i, d) {
-              app.preload(d.image, {
-                "as": "image"
+              $.each(app.globals.charities, function(i, d) {
+                app.preload(d.image, {
+                  "as": "image"
+                });
               });
-            });
 
-            app.load();
-            app.ready();
+              app.load();
+              app.ready();
 
-            setTimeout(function() {
-              $("#loader").fadeOut();
-            }, 500);
-            app.changePage("invoice");
-          },
-          error: function() {
-            $("#loader").fadeOut();
-            app.load();
-            app.changePage("error");
-          }
-        });
+              setTimeout(function() {
+                $("#loader").fadeOut();
+              }, 500);
+              app.changePage("invoice");
+            },
+            error: function() {
+              app.error("NO_ORDER", false, {});
+            }
+          });
+        };
+
+        app.import.start();
       }
     },
     preload: function(file, data) {
@@ -121,7 +164,7 @@ $(document).ready(function() {
       $("head").append($el);
     },
     load: function() {
-      $(".boxes .box").each(function() {
+      $("#content .box").each(function() {
         $(this).hide();
 
         var boxConfig = $(this).attr("data-box");
@@ -150,6 +193,7 @@ $(document).ready(function() {
       });
 
       app.setGlobals();
+      app.load = function() {};
     },
     ready: function() {
       if (typeof Storage !== "undefined") {
@@ -227,9 +271,10 @@ $(document).ready(function() {
               $("#loader").fadeOut();
               app.changePage("success", false);
             },
-            error: function() {
-              $("#loader").fadeOut();
-              app.changePage("error", false);
+            error: function(data) {
+              app.error("PAYMENT_FAILED", true, {
+                data: data
+              });
             }
           });
         });
@@ -261,8 +306,8 @@ $(document).ready(function() {
       app.globals.previous = app.globals.previousTo;
 
       if (doAnimate) {
-        $(".boxes .box").css("z-index", "10");
-        $(".boxes .box:visible").css("z-index", "11").addClass("animating").animate({
+        $("#content .box").css("z-index", "10");
+        $("#content .box:visible").css("z-index", "11").addClass("animating").animate({
           "top": "60%"
         }, 300, function() {
           $(this).animate({
@@ -274,7 +319,7 @@ $(document).ready(function() {
       }
 
       var hasPage = false;
-      $(".boxes .box").each(function() {
+      $("#content .box").each(function() {
         if (!doAnimate) {
           $(this).hide();
         }
@@ -287,10 +332,10 @@ $(document).ready(function() {
 
           var checkSize = function($el) {
             if ($(window).height() < ($el.show().innerHeight() + 100)) {
-              $(".boxes .box").hide();
-              $(".boxes").addClass("overflow");
+              $("#content .box").hide();
+              $("#content").addClass("overflow");
             } else {
-              $(".boxes").removeClass("overflow");
+              $("#content").removeClass("overflow");
             }
             $el.hide();
           };
@@ -309,7 +354,9 @@ $(document).ready(function() {
       });
 
       if (!hasPage) {
-        app.changePage("error", false);
+        app.error("NO_PAGE", false, {
+          page: pageName
+        });
       }
     },
     setGlobals: function(gName, gValue) {
@@ -344,21 +391,4 @@ $(document).ready(function() {
   };
 
   app.init();
-
-  var fonts = (function() {
-    var families = ["Playfair+Display:400,400italic,700,700italic:latin", "Montserrat:700,400:latin"];
-
-    function load() {
-      WebFont.load({
-        google: {
-          families: families
-        }
-      });
-    }
-    return {
-      load: load
-    };
-  }());
-  fonts.load();
-
 });

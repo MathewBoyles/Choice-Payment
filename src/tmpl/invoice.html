@@ -1,0 +1,37 @@
+<!-- BOX: invoice -->
+<div class="prices__item prices__item--02 prices__item--accent--02 box" data-box="{'name':'invoice','background':'default-state'}">
+  <img class="box-logo" data-value="{'src':'logo'}" data-change="choice" />
+  <h3 class="prices__item__title" data-value="{'html':'merchant'}"></h3>
+
+  <script type="text/template7">
+  <table class="table invoice">
+    <tbody>
+      {{#each items}}
+      <tr>
+        <th scope="row">{{quantity}}</th>
+        <td>{{name}}</td>
+        <td>
+          {{#js_if "this.price < 0"}}
+            -${{js "(0-this.price)/100"}}
+          {{else}}
+            ${{price/100}}
+          {{/js_if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  </script>
+
+  <table class="table invoice-total">
+    <tbody>
+      <tr>
+        <td>Total:</td>
+        <td>$<span data-value="{'html':'total'}"></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="#" class="button button--blue button--blue-shadow" id="invoiceButton">Next</a>
+</div>
+<!-- /BOX: invoice -->

@@ -1,0 +1,20 @@
+<!-- BOX: charity -->
+<div class="prices__item prices__item--02 prices__item--accent--02 box" data-box="{'name':'charity','background':'second-state'}">
+  <img class="box-logo" data-value="{'src':'logo'}" data-change="choice" />
+  <h3 class="prices__item__title" data-value="{'html':'merchant'}"></h3>
+  <h5 class="prices__item__title box-title">Select charity</h5>
+
+  <script type="text/template7">
+  <div class="charities">
+    {{#each charities}}
+    <div class="card charity" data-charity="{{@key}}">
+      <img class="card-img" src="{{image}}" alt="{{name}}" width="100%">
+      <div class="card-img-overlay">
+        <h5 class="card-title">{{name}}</h5>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  </script>
+</div>
+<!-- /BOX: charity -->
