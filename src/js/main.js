@@ -341,13 +341,18 @@ $(document).ready(function() {
           };
 
           if (doAnimate) {
-            setTimeout(function($el) {
-              checkSize($el);
+            setTimeout(function(data) {
+              checkSize(data[0]);
               $el.fadeIn();
-            }, 500, $(this));
+              setTimeout(function(pageName) {
+                hj("stateChange", app.invoiceKey + "/" + pageName);
+              }, 550, data[1]);
+            }, 500, [$(this), pageName]);
           } else {
             checkSize($(this));
             $(this).show();
+
+            hj("stateChange", app.invoiceKey + "/" + pageName);
           }
 
         }
