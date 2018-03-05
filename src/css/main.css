@@ -490,11 +490,11 @@ input {
   .boxes .box .btn-account,
   .boxes .box .btn-invoice {
     font-size: 0.7em; }
-  .boxes .box .confirm-footer {
+  .boxes .box .box-footer {
     margin: 25px 0 -25px; }
-    .boxes .box .confirm-footer > a {
+    .boxes .box .box-footer > a {
       margin-bottom: 10px; }
-      .boxes .box .confirm-footer > a:last-of-type {
+      .boxes .box .box-footer > a:last-of-type {
         margin-bottom: 0; }
   .boxes .box table.invoice {
     margin: 0; }
